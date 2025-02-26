@@ -1,0 +1,5 @@
+venv/*
+base/__pycache__
+base/migrations
+ambulance/__pycache__
+.env

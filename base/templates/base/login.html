@@ -1,0 +1,32 @@
+
+{% block content %}
+
+
+{% if page == 'login' %}
+<div>
+  <form method="POST" action="">
+      {% csrf_token %}
+
+      <label>username:</label>
+      <input type="text" name="username" placeholder="Enter Phone" />
+
+      <label>Password:</label>
+      <input type="password" name="password" placeholder="Enter Password" />
+
+      <input type="submit" value="Login" />
+  </form>
+{% endif %}
+<a href="{% url 'password_reset' %}">Forgot Password?</a>
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+</div>
+<p>Forgot Password?</p>
+<hr>
+<a href="{% url 'signup' %}">Dont have a account.Sign Up</a>
+{% endblock %}

@@ -1,0 +1,26 @@
+<h2>Book an Ambulance</h2>
+<form method="POST" id="bookingForm">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="hidden" id="latitude" name="latitude">
+    <input type="hidden" id="longitude" name="longitude">
+    <button type="submit">Book Now</button>
+</form>
+
+<script>
+  function getLocation() {
+      if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+              document.getElementById("latitude").value = position.coords.latitude;
+              document.getElementById("longitude").value = position.coords.longitude;
+          }, function(error) {
+              alert("Error getting location. Please enable location services.");
+          });
+      } else {
+          alert("Geolocation is not supported by this browser.");
+      }
+  }
+
+  // Get location when the page loads
+  window.onload = getLocation;
+</script>

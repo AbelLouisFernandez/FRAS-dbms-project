@@ -1,0 +1,9 @@
+Django==5.1.6
+django-ratelimit==4.1.0
+django-session-timeout==0.1.0
+Django-Verify-Email==3.0.3
+dotenv==0.9.9
+mysqlclient==2.2.7
+python-dotenv==1.0.1
+sqlparse==0.5.3
+

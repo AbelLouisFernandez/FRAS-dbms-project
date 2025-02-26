@@ -1,0 +1,17 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+<head>
+  <link rel="stylesheet" href="{% static 'styles/searchanime.css' %}">
+
+</head>
+<body>
+  <h3>First Responder Alert System</h3>
+  <div>
+    <a href="{% url 'book_ambulance' %}"><p>Book an ambulane now</p></a>
+  </div>  
+  
+
+  
+</body>
+{% endblock content %}

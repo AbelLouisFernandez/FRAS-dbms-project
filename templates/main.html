@@ -1,0 +1,23 @@
+{% load static %}
+<html>
+  <head>
+    <title>FRAS</title>
+    <link rel="stylesheet" href="{% static 'styles/main.css' %}">
+  </head>
+
+  <body>
+     <p>Basic Login and Logout User Account</p>
+    {% include 'navbar.html' %}
+    {% block content %}
+    {% endblock %}
+    {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+      {% endfor %}
+    </ul>
+   {% endif %}
+
+    <script src="/static/js/main.js"></script>
+  </body>
+</html>
