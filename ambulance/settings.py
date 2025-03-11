@@ -25,8 +25,13 @@ SECRET_KEY = 'django-insecure-0@7g%sofv&^=7a0j0ck+-tn+88pmye=l%w9py4ivx^5+y)9w#k
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["localhost","127.0.0.1"]
 
+# Add this if missing
+# ✅ Add this if missing
+DOMAIN = "http://127.0.0.1:8000"  # Change this to your actual domain
+EMAIL_VERIFICATION_URL = f"{DOMAIN}/verification/user/verify-email/"
+LOGIN_URL = "login"
 
 # Application definition
 
@@ -38,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'base',
+    "verify_email.apps.VerifyEmailConfig",
 ]
 
 MIDDLEWARE = [

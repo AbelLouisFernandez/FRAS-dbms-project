@@ -12,7 +12,7 @@ from django.contrib.auth.views import PasswordResetView
 #from verify_email.email_handler import *
 import verify_email
 from django.core.mail import send_mail
-
+from verify_email.email_handler import ActivationMailManager
 
 
 def home(request):
@@ -28,7 +28,8 @@ def signup(request):
         form = SignUpForm(request.POST, request.FILES)
         if form.is_valid():
             enteredemail=form.cleaned_data['email']
-            users=CustomUser.objects.get(email=enteredemail)
+            users = CustomUser.objects.filter(email=enteredemail).first()
+
             if users:
                 messages.error(request, 'This email has already been registered to a user')
             else:
@@ -36,12 +37,18 @@ def signup(request):
                     pass
                 else:
                     form.cleaned_data['avatar']='avatar.png'
-                    inactive_user = verify_email.email_handler.send_verification_email(request, form)
+                    mail_manager = ActivationMailManager()
+                    inactive_user = mail_manager.send_verification_link(form=form)
                     return render(request,'base/verificationemailsent.html')
     else:
         form = SignUpForm()
 
     return render(request, 'base/signup.html', {'form': form})
+
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login
+from django.contrib import messages
+from .models import CustomUser
 
 def loginPage(request):
     page = 'login'
@@ -52,20 +59,18 @@ def loginPage(request):
         username = request.POST.get('username')
         password = request.POST.get('password')
 
-        try:
-            user = CustomUser.objects.get(username=username)
-            user = authenticate(request, username=user.username, password=password)
+        # ✅ Correct usage of authenticate()
+        user = authenticate(request, username=username, password=password)
 
-            if user is not None:
-                login(request, user)
-                return redirect('home')
-            else:
-                messages.error(request, 'Email OR password is incorrect')
-        except CustomUser.DoesNotExist:
-            messages.error(request, "User does not exist")
+        if user is not None:
+            login(request, user)
+            return redirect('home')
+        else:
+            messages.error(request, 'Username OR password is incorrect')
 
     context = {'page': page}
     return render(request, 'base/login.html', context)
+
 
 def logoutUser(request):
     logout(request)
@@ -124,3 +129,5 @@ def book_ambulance(request):
 
 def success_page(request):
     return render(request, "base/success.html")
+
+
