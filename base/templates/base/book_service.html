@@ -1,10 +1,11 @@
-<h2>Book an Ambulance</h2>
+<h2>Book a {{ service_type|title }}</h2>
 <form method="POST" id="bookingForm">
     {% csrf_token %}
     {{ form.as_p }}
     <input type="hidden" id="latitude" name="latitude">
     <input type="hidden" id="longitude" name="longitude">
-    <button type="submit">Book Now</button>
+    <input type="hidden" name="service_type" value="{{ service_type }}">
+    <button type="submit">Book {{ service_type|title }}</button>
 </form>
 
 <script>

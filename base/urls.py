@@ -12,8 +12,8 @@ urlpatterns=[path('',views.home,name='home'),
              path('reset_password_sent/',auth_views.PasswordResetDoneView.as_view(template_name='base/registration/password_reset_sent.html'),name='password_reset_done'), 
              path('reset/<uidb64>/<token>',auth_views.PasswordResetConfirmView.as_view(template_name='base/registration/password_reset_confirm.html'),name='password_reset_confirm'),
              path('reset_password_complete/',auth_views.PasswordResetCompleteView.as_view(template_name='base/registration/password_reset_done.html'),name='password_reset_complete'),
-             path("book/", views.book_ambulance, name="book_ambulance"),
-             path('success_page',views.success_page,name="success_page"),
+             path('success_page/<str:service_type>/',views.success_page,name="success_page"),
+             path("book-service/<str:service_type>/",views.book_service, name="book_service"),
               ]
 
 

@@ -15,6 +15,8 @@ class Booking(models.Model):
     latitude = models.FloatField()
     longitude = models.FloatField()
     booked_at = models.DateTimeField(auto_now_add=True)
+    description = models.CharField(max_length=100,default="Nothing",null=True)
+    service_type = models.CharField(max_length=50,default="service")
 
     def __str__(self):
         return f"{self.user.username} - ({self.latitude}, {self.longitude})"

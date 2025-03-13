@@ -13,6 +13,7 @@ from django.contrib.auth.views import PasswordResetView
 import verify_email
 from django.core.mail import send_mail
 from verify_email.email_handler import ActivationMailManager
+from django.utils.timezone import localtime
 
 
 def home(request):
@@ -45,10 +46,6 @@ def signup(request):
 
     return render(request, 'base/signup.html', {'form': form})
 
-from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
-from django.contrib import messages
-from .models import CustomUser
 
 def loginPage(request):
     page = 'login'
@@ -104,30 +101,33 @@ def custom_password_reset_view(request, *args, **kwargs):
 
 
 @login_required
-def book_ambulance(request):
+def book_service(request,service_type):
+    service_type_formatted = service_type.replace("_", " ").title()  # Converts "fire_engine" → "Fire Engine"
     if request.method == "POST":
         form = BookingForm(request.POST)
         if form.is_valid():
             booking = form.save(commit=False)
             booking.user = request.user
+            booking.booked_at = localtime()
             booking.save()
-
-            # Send Email to Coordinator
+    
             coordinator_email = "abellouisfernandez@gmail.com"
-            subject = "🚑 New Ambulance Booking Request"
+            subject = f"🚨 New {service_type_formatted} Booking Request"
             message = f"""
-            A new ambulance booking has been made by {request.user.username}.
-            Location: https://www.google.com/maps?q={booking.latitude},{booking.longitude}
+            A new {service_type_formatted} booking has been made by {request.user.username}.
+            Location: https://www.google.com/maps?q={request.POST.get('latitude')},{request.POST.get('longitude')}
             """
-            send_mail(subject, message, "your_email@example.com", [coordinator_email])
 
-            return redirect("success_page")  # Redirect to a success page
+            send_mail(subject, message, "your_email@example.com", [coordinator_email])
+            context = {"service_type": service_type_formatted}
+            return redirect("success_page", service_type=service_type_formatted)
     else:
         form = BookingForm()
+    context = {"service_type": service_type_formatted,"form":form}
+    return render(request, "base/book_service.html",context)
 
-    return render(request, "base/book_ambulance.html", {"form": form})
+def success_page(request, service_type):
+    return render(request, "base/success_page.html", {"service_type": service_type})
 
-def success_page(request):
-    return render(request, "base/success.html")
 
 

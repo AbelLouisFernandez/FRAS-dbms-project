@@ -16,8 +16,9 @@ class SignUpForm(UserCreationForm):
 class BookingForm(forms.ModelForm):
     class Meta:
         model = Booking
-        fields = ["latitude", "longitude"]
+        fields = ["latitude", "longitude","description","service_type"]
         widgets = {
             "latitude": forms.HiddenInput(),
             "longitude": forms.HiddenInput(),
+            "service_type": forms.HiddenInput(),
         }

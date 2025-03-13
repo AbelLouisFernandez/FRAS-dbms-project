@@ -9,7 +9,9 @@
   <h3>First Responder Alert System</h3>
   {% if request.user.is_authenticated %}
   <div>
-    <a href="{% url 'book_ambulance' %}"><p>Book an ambulane now</p></a>
+    <a href="{% url 'book_service' service_type='ambulance' %}"><p>Book an ambulane now</p></a>
+    <a href="{% url 'book_service' service_type='fire_engine' %}"><p>Book a fire engine now</p></a>
+    <a href="{% url 'book_service' service_type='police' %}"><p>Book a police</p></a>
   </div>  
   {% endif %}
   
