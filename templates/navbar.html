@@ -4,24 +4,28 @@
 </head>
 <body>
   <div>
-    <div style="text-align: center;" >
-      <a href="{% url 'home' %}"><p>Home</p></a>
-     </div>
+    <div class="home">
+      <a href="{% url 'home' %}">
+        <p>Home</p>
+      </a>
+    </div>
     <div>
     {% if request.user.is_authenticated %}
     <div class="user-profile">
-        <a href="{% url 'profile' %}"><span class="username">{{request.user}}</span></a>
-      </div>
-      <br>
+        <a href="{% url 'profile' %}">
+          <span class="username">{{request.user}}</span>
+        </a>
+    </div>
+    <br>
     <div>
       <button class='log-button' data-href="{% url 'logout' %}">Logout</button>
       <hr>
-      {% else %}
+    </div>
+    {% else %}
       <button class='log-button' data-href="{% url 'login' %}">Please Login for Full functionality of website</button>
       <hr>
     </div>
     {% endif %}
     </div>
-    
   </div>
 </body>

@@ -1,0 +1,30 @@
+h3 {
+    font-size: 1.5rem;
+    color: #333;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.book_services {
+    display: flex;
+    align-items: center;
+    flex-direction:  column; /* This ensures the divs are displayed in a row */
+    justify-content: space-between; /* Optional: Add some space between the items */
+}
+
+.book_services div {
+    margin: 0 1rem; /* Optional: Adjust margin between the divs for better spacing */
+}
+
+.book_services a p {
+    background-color: #4CAF50;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.book_services a p:hover {
+    background-color: #45a049;
+}

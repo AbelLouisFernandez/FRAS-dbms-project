@@ -4,9 +4,7 @@
     <title>FRAS</title>
     <link rel="stylesheet" href="{% static 'styles/main.css' %}">
   </head>
-
   <body>
-     <p>Basic Login and Logout User Account</p>
     {% include 'navbar.html' %}
     {% block content %}
     {% endblock %}
@@ -17,7 +15,6 @@
       {% endfor %}
     </ul>
    {% endif %}
-
     <script src="/static/js/main.js"></script>
   </body>
 </html>

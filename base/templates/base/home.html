@@ -2,20 +2,30 @@
 {% load static %}
 {% block content %}
 <head>
-  <link rel="stylesheet" href="{% static 'styles/searchanime.css' %}">
-
+  <link rel="stylesheet" href="{% static 'styles/home.css' %}">
 </head>
 <body>
   <h3>First Responder Alert System</h3>
   {% if request.user.is_authenticated %}
-  <div>
-    <a href="{% url 'book_service' service_type='ambulance' %}"><p>Book an ambulane now</p></a>
-    <a href="{% url 'book_service' service_type='fire_engine' %}"><p>Book a fire engine now</p></a>
-    <a href="{% url 'book_service' service_type='police' %}"><p>Book a police</p></a>
+  <div class="book_services">
+    <div>
+      <a href="{% url 'book_service' service_type='ambulance' %}">
+        <p>Book an ambulance now</p>
+      </a>
+    </div>
+
+    <div>
+      <a href="{% url 'book_service' service_type='fire_engine' %}">
+        <p>Book a fire engine now</p>
+      </a>
+    </div>
+    
+    <div>
+      <a href="{% url 'book_service' service_type='police' %}">
+        <p>Book a police</p>
+      </a>
+    </div>
   </div>  
   {% endif %}
-  
-
-  
 </body>
 {% endblock content %}

@@ -115,6 +115,7 @@ def book_service(request,service_type):
             subject = f"🚨 New {service_type_formatted} Booking Request"
             message = f"""
             A new {service_type_formatted} booking has been made by {request.user.username}.
+            Event Description: {booking.description}.
             Location: https://www.google.com/maps?q={request.POST.get('latitude')},{request.POST.get('longitude')}
             """
 
